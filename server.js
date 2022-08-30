@@ -1,6 +1,13 @@
 const express = require('express');
 const routes = require('./routes');
 // import sequelize connection
+const { sequelize } = require('./models');
+
+// import models
+const { Product } = require('./models');
+const { Category } = require('./models');
+const { Tag } = require('./models');
+const { ProductTag } = require('./models');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -11,6 +18,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(routes);
 
 // sync sequelize models to the database, then turn on the server
-app.listen(PORT, () => {
-  console.log(`App listening on port ${PORT}!`);
-});
+sequelize.sync({ force: false }).then(() => {
+  app.listen(PORT, () => { console.log(`Server listening on port ${PORT}`); } );
+}).catch(err => {
+  console.log(err);
+}
+);
+
+  
