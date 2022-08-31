@@ -22,7 +22,7 @@ Product.init(
   },
   price: {
     // shows price as a dollar amount
-    type: DataTypes.DECIMAL(10, 2),
+    type: DataTypes.DECIMAL,
     allowNull: false,
     // validate that price is a number
     validate: {
